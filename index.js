@@ -1,5 +1,6 @@
 //bind events
 document.addEventListener("DOMContentLoaded", (event) => {
+    console.log("DOMContentLoaded")
     document.body.style.backgroundImage = "url('background_0.jpg')"
     document.getElementById("video-player").addEventListener("timeupdate", () => videoProgress())
 })
@@ -7,6 +8,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 // 
 let btnEnabled = null
 function start() {
+    console.log("start - enabled:", btnEnabled)
+
     //false -> disable clicks
     if (btnEnabled == false) {
         return
@@ -15,6 +18,7 @@ function start() {
     //true -> siguiente etapa
     if (btnEnabled) {
         recibirRegalo()
+        btnEnabled = false
         return
     }
 
@@ -41,6 +45,8 @@ function start() {
 }
 
 function recibirRegalo() {
+    console.log("recibirRegalo")
+
     //apagar musica cumple
     audio = document.getElementById("audio");
     audio.volume = 0;
@@ -63,6 +69,23 @@ function recibirRegalo() {
 function videoProgress() {
     let time = document.getElementById("video-player").currentTime
     if (time >= 67.6) {
-        document.getElementById("video-container").style.display = 'none'
+        startQuizz()
     }
+}
+
+function startQuizz() {
+    console.log("startQuizz")
+
+    //background
+    document.body.style.backgroundImage = "url('background_3.jpg')"
+    
+    //musica
+    audio = document.getElementById("audio");
+    audio.src = "quizz.mp3"
+    audio.volume = 0.4
+    audio.play()
+
+    //mostrar quizz
+    document.getElementById("video-container").style.display = 'none'
+    document.getElementById("quizz-container").style.display = 'block'
 }

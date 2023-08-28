@@ -29,3 +29,20 @@ body {
 #button-container:hover {
     filter: brightness(110%);
 }
+
+h3 {
+    color: #f3f30f;
+    text-shadow: 2px 2px 2px black;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#quizz-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(209 209 209 / 50%);
+    border-radius: 10px;
+    padding: 20px;
+}
