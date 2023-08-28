@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: url('background_0.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+#video-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#video-player {
+    width: 100%;
+    max-width: 1000px;
+}
+
+#button-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+#button-container:hover {
+    filter: brightness(110%);
+}

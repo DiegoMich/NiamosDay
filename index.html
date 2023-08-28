@@ -1,1 +1,23 @@
-
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Video Player</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <audio id="audio" autoplay="true" loop="true" src="bday.mp3"></audio>
+        <div id="video-container" hidden>
+            <video id="video-player" controls autoplay muted>
+                <source src="bday.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div id="button-container">
+            <img id="button-start" src="btn1.png" onclick="start()">
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="index.js"></script>
+    </body>
+</html>
