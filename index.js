@@ -1,18 +1,21 @@
+//bind events
 document.addEventListener("DOMContentLoaded", (event) => {
-    return
-});
+    document.body.style.backgroundImage = "url('background_0.jpg')"
+    document.getElementById("video-player").addEventListener("timeupdate", () => videoProgress())
+})
 
 // 
-let btnEnabled = null;
+let btnEnabled = null
 function start() {
     //false -> disable clicks
     if (btnEnabled == false) {
-        return;
+        return
     }
 
     //true -> siguiente etapa
     if (btnEnabled) {
         recibirRegalo()
+        return
     }
 
     //null -> count down
@@ -50,12 +53,16 @@ function recibirRegalo() {
     
     //sacar el mute del video (async)
     setTimeout(()=> {
-        document.getElementById("video-player").muted = false;
+        document.getElementById("video-player").muted = false
     },100)
 
     //cambiar background
-    document.body.style.backgroundImage = "url('background_2.jpg')";
-    //hack: refresh background
-    document.getElementById('body').style.display = 'none';
-    document.getElementById('body').style.display = 'block';
+    document.body.style.backgroundImage = "url('background_2.jpg')"
+}
+
+function videoProgress() {
+    let time = document.getElementById("video-player").currentTime
+    if (time >= 67.6) {
+        document.getElementById("video-container").style.display = 'none'
+    }
 }
