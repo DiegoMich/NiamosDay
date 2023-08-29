@@ -1,5 +1,5 @@
 // VERSION
-const version = "1.3"
+const version = "2.0"
 
 // preguntas + index de la pregunta actual para la quizz
 let questions = null
