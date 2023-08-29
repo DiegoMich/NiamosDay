@@ -46,7 +46,7 @@ function start() {
         document.getElementById("button-start").setAttribute("src", "img/btn_regalo_2.png")
         setTimeout(()=> {
             document.getElementById("button-start").setAttribute("src", "img/btn_regalo_1.png")
-            setTimeout(()=> {por 
+            setTimeout(()=> {
                 document.getElementById("button-start").setAttribute("src", "img/btn_regalo.png")
                 btnEnabled = true;
             }, 2000)
