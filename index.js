@@ -100,7 +100,7 @@ function startQuizz() {
     //musica
     audio = document.getElementById("audio");
     audio.src = "media/quizz.mp3"
-    audio.volume = 0.8
+    audio.volume = 0.5
     audio.play()
     
     //carga preguntas desde quizz.js
