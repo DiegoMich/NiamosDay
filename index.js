@@ -1,11 +1,20 @@
+// VERSION
+const version = "1.3"
+
+// preguntas + index de la pregunta actual para la quizz
+let questions = null
+let currentQuestion = 0
+let canAnswer = true
+
 //bind events
 document.addEventListener("DOMContentLoaded", (event) => {
+    console.log("Version: ", version)
     console.log("DOMContentLoaded")
-    document.body.style.backgroundImage = "url('background_0.jpg')"
+    document.body.style.backgroundImage = "url('img/background_0.jpg')"
     document.getElementById("video-player").addEventListener("timeupdate", () => videoProgress())
 })
 
-// 
+// Pantalla inicial
 let btnEnabled = null
 function start() {
     console.log("start - enabled:", btnEnabled)
@@ -24,26 +33,27 @@ function start() {
 
     //null -> count down
     //cambiar background
-    document.body.style.backgroundImage = "url('background_1.jpg')";
+    document.body.style.backgroundImage = "url('img/background_1.jpg')";
     //play feliz cumple
     audio = document.getElementById("audio");
     audio.play();
 
     btnEnabled = false;
     document.getElementById("button-start").setAttribute("enabled", "false")
-    document.getElementById("button-start").setAttribute("src", "btn_regalo_3.png")
+    document.getElementById("button-start").setAttribute("src", "img/btn_regalo_3.png")
     setTimeout(()=> {
-        document.getElementById("button-start").setAttribute("src", "btn_regalo_2.png")
+        document.getElementById("button-start").setAttribute("src", "img/btn_regalo_2.png")
         setTimeout(()=> {
-            document.getElementById("button-start").setAttribute("src", "btn_regalo_1.png")
+            document.getElementById("button-start").setAttribute("src", "img/btn_regalo_1.png")
             setTimeout(()=> {
-                document.getElementById("button-start").setAttribute("src", "btn_regalo.png")
+                document.getElementById("button-start").setAttribute("src", "img/btn_regalo.png")
                 btnEnabled = true;
-            }, 2000)
-        }, 2000)
-    }, 3000)
+            }, 2) //2000
+        }, 2) //2000
+    }, 3) //3000
 }
 
+// Cambia a la pantalla del video
 function recibirRegalo() {
     console.log("recibirRegalo")
 
@@ -63,9 +73,10 @@ function recibirRegalo() {
     },100)
 
     //cambiar background
-    document.body.style.backgroundImage = "url('background_2.jpg')"
+    document.body.style.backgroundImage = "url('img/background_2.jpg')"
 }
 
+// Timer para pasar a la pantalla de preguntas cuando termina el video
 function videoProgress() {
     let time = document.getElementById("video-player").currentTime
     if (time >= 67.6) {
@@ -73,19 +84,122 @@ function videoProgress() {
     }
 }
 
+// Cambia a la pantalla de preguntas
 function startQuizz() {
     console.log("startQuizz")
 
     //background
-    document.body.style.backgroundImage = "url('background_3.jpg')"
+    document.body.style.backgroundImage = "url('img/background_3.jpg')"
     
-    //musica
-    audio = document.getElementById("audio");
-    audio.src = "quizz.mp3"
-    audio.volume = 0.4
-    audio.play()
-
     //mostrar quizz
     document.getElementById("video-container").style.display = 'none'
     document.getElementById("quizz-container").style.display = 'block'
+
+    //musica
+    audio = document.getElementById("audio");
+    audio.src = "media/quizz.mp3"
+    audio.volume = 0.5
+    audio.play()
+    
+    //carga preguntas desde quizz.js
+    questions = JSON.parse(questions_text)
+    questions = shuffle(questions)
+
+    //bind click respuestas
+    for(let i = 1; i <= 4; i++) {
+        let button = document.getElementById(`quizz-a${i}`)
+        button.addEventListener("click", answer);
+    }
+    
+    loadNextQuestion()
 }
+
+
+// Triggers after an answer is clicked
+// Show result (button color)
+// Remove life if wrong
+// Load next question
+function answer(e) {
+    if (!canAnswer) {
+        return
+    }
+
+    //Set result color on button
+    let button = e.target
+    let correct = button.getAttribute("valid") === "true"
+    if (correct) {
+        button.classList.remove("btn-outline-dark")
+        button.classList.add("btn-success")
+    } else {
+        button.classList.remove("btn-outline-dark")
+        button.classList.add("btn-danger")
+    }
+
+    //Disable answer buttons
+    toggleButtons(false);
+
+    //Timer before loading next question and refresh buttons
+    document.body.classList.add('waiting');
+    setTimeout(()=> {
+        button.classList.add("btn-outline-dark")
+        button.classList.remove("btn-danger")
+        button.classList.remove("btn-success")
+        document.body.classList.remove('waiting');
+        loadNextQuestion()
+    }, 2000)
+}
+
+// Enables or disables answer buttons for quizz
+function toggleButtons(enable){
+    canAnswer = enable
+}
+
+// Carga la siguiente pregunta en pantalla
+function loadNextQuestion() {
+    //Check fin del juego (mover esto a una funcion WIN)
+    if (currentQuestion === 5) {
+        //background
+        document.body.style.backgroundImage = "url('img/background_4.jpg')"
+        document.getElementById("quizz-container").setAttribute("hidden","true")
+        //musica
+        audio = document.getElementById("audio");
+        audio.src = "media/win.mp3"
+        audio.volume = 1
+        audio.play()
+    }
+
+    //Reactiva answer buttons
+    toggleButtons(true);
+
+    //Carga pregunta actual
+    q = questions[currentQuestion]
+    document.getElementById("quizz-title").innerText = `Pregunta ${currentQuestion+1} de 5`
+    document.getElementById("quizz-question").innerText = q.question
+    
+    q.answers.forEach(function (a, i) {
+        let button = document.getElementById(`quizz-a${i+1}`)
+        button.innerText = a.text
+        button.setAttribute("valid", a.valid)
+    });
+    
+    currentQuestion++
+}
+
+// Randomiza el orden de las preguntas
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex > 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }

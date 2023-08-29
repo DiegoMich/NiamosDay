@@ -4,49 +4,50 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Happy...? Birthday!</title>
-        <link rel="shortcut icon" href="favicon.png">
+        <link rel="shortcut icon" href="img/favicon.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
-        <link rel="preload" as="image" href="background_0.jpg">
-        <link rel="preload" as="image" href="background_1.jpg">
-        <link rel="preload" as="image" href="background_2.jpg">
+        <link rel="preload" as="image" href="img/background_0.jpg">
+        <link rel="preload" as="image" href="img/background_1.jpg">
+        <link rel="preload" as="image" href="img/background_2.jpg">
+        <link rel="preload" as="image" href="img/background_3.jpg">
+        <link rel="preload" as="image" href="img/background_4.jpg">
+
+
     </head>
     <body>
-        <audio id="audio" autoplay="true" loop="true" src="bday.mp3"></audio>
+        <audio id="audio" autoplay="true" loop="true" src="media/bday.mp3"></audio>
         <div id="video-container" hidden>
             <video id="video-player" controls autoplay muted>
-                <source src="bday.mp4" type="video/mp4">
+                <source src="media/bday.mp4" type="video/mp4">
             </video>
         </div>
         <div id="button-container">
-            <img id="button-start" src="btn1.png" onclick="start()">
+            <img id="button-start" src="img/btn1.png" onclick="start()">
         </div>
         <div id="quizz-container" style="display: none;">
-            <h3>Pregunta 1/5</h3>
-            <fieldset>
-                <legend>¿Cuál de los siguientes <strong>NO</strong> es un personaje de Slay The Spire?</legend>
-                <div>
-                  <input type="radio" id="1" value="1" checked name="quizz"/>
-                  <label for="huey">The Watcher</label>
-                </div>
-                <div>
-                  <input type="radio" id="2" value="2" name="quizz"/>
-                  <label for="dewey">The Ancient</label>
-                </div>
-                <div>
-                  <input type="radio" id="3" value="3" name="quizz"/>
-                  <label for="louie">The Silent</label>
-                </div>
-                <div>
-                    <input type="radio" id="4" value="4" name="quizz"/>
-                    <label for="louie">The Ironclad</label>
+            <h3 id="quizz-title">Pregunta 1/5</h3>
+            <h4 id="quizz-question">¿Cuál de los siguientes no es un personaje de Slay The Spire?</h4>
+            <div id="quizz-answers" class="container">
+                <div class="row">
+                  <div class="col">
+                    <button id="quizz-a1" type="button" class="btn btn-outline-dark answer">The Watcher</button>
                   </div>
-            </fieldset>
-            <div style="text-align: center; margin-top: 15px;">
-                <button type="button" class="btn btn-secondary">Aceptar</button>
+                  <div class="col">
+                    <button id="quizz-a2" type="button" class="btn btn-outline-dark answer">The Silent</button>
+                  </div>
+                  <div class="w-100"></div>
+                  <div class="col">
+                    <button id="quizz-a3" type="button" class="btn btn-outline-dark answer">The Guardian</button>
+                  </div>
+                  <div class="col">
+                    <button id="quizz-a4" type="button" class="btn btn-outline-dark answer">The Defect</button>
+                  </div>
+                </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="quizz.js"></script>
         <script src="index.js"></script>
     </body>
 </html>
