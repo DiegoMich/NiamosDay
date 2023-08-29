@@ -5,6 +5,7 @@ const version = "1.3"
 let questions = null
 let currentQuestion = 0
 let canAnswer = true
+let lifeCounter = 3
 
 //bind events
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -48,9 +49,9 @@ function start() {
             setTimeout(()=> {
                 document.getElementById("button-start").setAttribute("src", "img/btn_regalo.png")
                 btnEnabled = true;
-            }, 2) //2000
-        }, 2) //2000
-    }, 3) //3000
+            }, 2000)
+        }, 2000)
+    }, 3000)
 }
 
 // Cambia a la pantalla del video
@@ -94,11 +95,12 @@ function startQuizz() {
     //mostrar quizz
     document.getElementById("video-container").style.display = 'none'
     document.getElementById("quizz-container").style.display = 'block'
+    document.getElementById("life-container").style.display = 'block'
 
     //musica
     audio = document.getElementById("audio");
     audio.src = "media/quizz.mp3"
-    audio.volume = 0.5
+    audio.volume = 0.8
     audio.play()
     
     //carga preguntas desde quizz.js
@@ -124,15 +126,18 @@ function answer(e) {
         return
     }
 
-    //Set result color on button
+    //Set result color on button, remove life if wrong
     let button = e.target
     let correct = button.getAttribute("valid") === "true"
     if (correct) {
         button.classList.remove("btn-outline-dark")
         button.classList.add("btn-success")
+        playSound("right_answer")
     } else {
         button.classList.remove("btn-outline-dark")
         button.classList.add("btn-danger")
+        lifeCounter--
+        updateLife()
     }
 
     //Disable answer buttons
@@ -156,11 +161,28 @@ function toggleButtons(enable){
 
 // Carga la siguiente pregunta en pantalla
 function loadNextQuestion() {
-    //Check fin del juego (mover esto a una funcion WIN)
+    // LOSS
+    if (lifeCounter === 0) {
+        // stop music
+        audio = document.getElementById("audio");
+        audio.volume = 0
+
+        //die effect
+        playSound("death")
+        
+        //show death screen
+        document.getElementById("quizz-container").style.display = 'none'
+        document.getElementById("life-container").style.display = 'none'
+        document.body.style.backgroundImage = "url('img/background_5.jpg')"
+        return
+    }
+
+    //WIN
     if (currentQuestion === 5) {
         //background
         document.body.style.backgroundImage = "url('img/background_4.jpg')"
-        document.getElementById("quizz-container").setAttribute("hidden","true")
+        document.getElementById("quizz-container").style.display = 'none'
+        document.getElementById("life-container").style.display = 'none'
         //musica
         audio = document.getElementById("audio");
         audio.src = "media/win.mp3"
@@ -200,6 +222,24 @@ function shuffle(array) {
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
-  
+
     return array;
-  }
+}
+
+// Update hearts displayed
+function updateLife() {
+    playSound("life_loss")
+    document.getElementById("life-1").src = lifeCounter > 1 ? "img/heart_full.png" : "img/heart_empty.png"
+    document.getElementById("life-2").src = lifeCounter > 2 ? "img/heart_full.png" : "img/heart_empty.png"
+    document.getElementById("life-container").style.animationName = "shake"
+    setTimeout(()=> {
+        document.getElementById("life-container").style.animationName = "null"
+    }, 1000)
+}
+
+function playSound(name) {
+    audio = document.getElementById("fx");
+    audio.src = `media/${name}.mp3`
+    audio.volume = 1
+    audio.play()
+}
