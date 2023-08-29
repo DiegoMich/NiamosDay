@@ -1,5 +1,5 @@
 // VERSION
-const version = "2.0"
+const version = "2.1"
 
 // preguntas + index de la pregunta actual para la quizz
 let questions = null
@@ -46,7 +46,7 @@ function start() {
         document.getElementById("button-start").setAttribute("src", "img/btn_regalo_2.png")
         setTimeout(()=> {
             document.getElementById("button-start").setAttribute("src", "img/btn_regalo_1.png")
-            setTimeout(()=> {
+            setTimeout(()=> {por 
                 document.getElementById("button-start").setAttribute("src", "img/btn_regalo.png")
                 btnEnabled = true;
             }, 2000)
