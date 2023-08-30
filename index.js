@@ -34,6 +34,7 @@ function start() {
 
     //null -> count down
     //cambiar background
+    blur()
     document.body.style.backgroundImage = "url('img/background_1.jpg')";
     //play feliz cumple
     audio = document.getElementById("audio");
@@ -59,6 +60,7 @@ function recibirRegalo() {
     console.log("recibirRegalo")
 
     document.getElementsByTagName("title")[0].innerText = "Happy Birthday...? 😈"
+    blur()
 
     //apagar musica cumple
     audio = document.getElementById("audio");
@@ -82,8 +84,14 @@ function recibirRegalo() {
 // Timer para pasar a la pantalla de preguntas cuando termina el video
 function videoProgress() {
     let time = document.getElementById("video-player").currentTime
+    // primera transision -> quizz
     if (time >= 67.6) {
         startQuizz()
+    }
+
+    // segunda transision -> ultima vida
+    if (time >= 28 && lifeCounter == 1) {
+        resumeQuizz()
     }
 }
 
@@ -91,6 +99,7 @@ function videoProgress() {
 function startQuizz() {
     console.log("startQuizz")
 
+    blur()
     //background
     document.body.style.backgroundImage = "url('img/background_3.jpg')"
     
@@ -184,6 +193,11 @@ function loadNextQuestion() {
         return
     }
 
+    //LAST LIFE: THREAT
+    if (lifeCounter === 1) {
+        showThreatVideo()
+    }
+
     //WIN
     if (currentQuestion === 5) {
         //background
@@ -249,4 +263,36 @@ function playSound(name) {
     audio.src = `media/${name}.mp3`
     audio.volume = 1
     audio.play()
+}
+
+// blur para tarnsicion entre escenas
+function blur() {
+    document.getElementsByTagName('html')[0].style.animationName = 'blur'
+    setTimeout(()=> {
+        document.getElementsByTagName('html')[0].style.animationName = 'null'
+    }, 1000)
+}
+
+// muestra el video de la amenaza, y retoma el juego
+function showThreatVideo() {
+    console.log('showThreatVideo')
+
+    //apagar musica
+    audio = document.getElementById("audio");
+    audio.volume = 0;
+
+    //mostar el video
+    document.getElementById("video-container").style.display = 'block'
+    document.getElementById("video-container").style.zIndex = 1
+    document.getElementsByTagName('source')[0].src = 'media/threat.mp4'
+    document.getElementById("video-player").load()
+}
+
+function resumeQuizz() {
+    //prender musica
+    audio = document.getElementById("audio");
+    audio.volume = 0.5;
+
+    //ocultar el video
+    document.getElementById("video-container").style.display = 'none'
 }

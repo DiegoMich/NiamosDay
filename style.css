@@ -19,7 +19,7 @@ body.waiting * {
 
 #video-player {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1280px;
 }
 
 #button-container {
@@ -99,4 +99,24 @@ h4 {
     80% { transform: translate(-1px, -1px) rotate(1deg); }
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+html {
+    animation-name: null;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+}
+
+@keyframes blur {
+    0% { filter: blur(4px); }
+    10% { filter: blur(3.5px); }
+    20% { filter: blur(3px); }
+    30% { filter: blur(2.7px); }
+    40% { filter: blur(2.2px); }
+    50% { filter: blur(2px); }
+    60% { filter: blur(1.7px); }
+    70% { filter: blur(1.5px); }
+    80% { filter: blur(1px); }
+    90% { filter: blur(0.5px); }
+    100% { filter: blur(0px); }
 }
