@@ -14,19 +14,25 @@
         <link rel="preload" as="image" href="img/background_4.jpg">
         <link rel="preload" as="image" href="img/background_5.jpg">
         <link rel="prefetch" href="media/bday.mp3">
-        <link rel="prefetch" href="media/death.mp3">
         <link rel="prefetch" href="media/life_loss.mp3">
         <link rel="prefetch" href="media/quizz.mp3">
         <link rel="prefetch" href="media/right_answer.mp3">
         <link rel="prefetch" href="media/win.mp3">
+        <link rel="preload" as="video" href="media/bday.mp4">
+        <link rel="preload" as="video" href="media/threat.mp4">
+        <link rel="preload" as="video" href="media/death.mp4">
     </head>
     <body>
         <audio id="audio" autoplay="true" loop="true" src="media/bday.mp3"></audio>
         <audio id="fx" src=""></audio>
+        <div id="die-msg-container" style="display: none;">
+          <h1>HAS MUERTO. NO HAY REGALOS, Y ADEMAS...</h1>
+        </div>
         <div id="video-container" hidden>
-            <video id="video-player" controls autoplay muted>
+            <video id="video-player" controls autoplay muted preload="auto">
                 <source src="media/bday.mp4" type="video/mp4">
             </video>
+            <a id="button-restart" href="javascript:location.reload(true)" style="display: none; margin-top: 40px;"><img src="img/btn_restart.png"></a>
         </div>
         <div id="button-container">
             <img id="button-start" src="img/btn1.png" onclick="start()">

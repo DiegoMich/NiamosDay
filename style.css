@@ -15,6 +15,7 @@ body.waiting * {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 #video-player {
@@ -119,4 +120,18 @@ html {
     80% { filter: blur(1px); }
     90% { filter: blur(0.5px); }
     100% { filter: blur(0px); }
+}
+
+#button-restart:hover {
+    filter: brightness(110%);
+}
+
+h1 {
+    color: #a32020;
+    font-family: math;
+    font-size: xxx-large;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    text-shadow: 1px 1px 3px black;
 }

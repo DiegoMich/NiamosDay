@@ -2,7 +2,7 @@
 const questions_text =
     `[
         {
-            "question": "Cual es el punto debil del Profesor Fratachon?",
+            "question": "Cuál es el punto debil del Profesor Fratachón?",
             "answers": [
                 {
                     "text": "No poder moverse con la minigun",
@@ -23,7 +23,7 @@ const questions_text =
             ]
         },
         {
-            "question": "Segun el Profesor Magicon, para que sirven las vidas? ",
+            "question": "Según el Profesor Magicón, para qué sirven las vidas? ",
             "answers": [
                 {
                     "text": "Las vidas son un recurso",
@@ -44,7 +44,7 @@ const questions_text =
             ]
         },
         {
-            "question": "Identifique el nispero",
+            "question": "Identifique el níspero",
             "answers": [
                 {
                     "text": "Eriobotrya japonica",
@@ -65,7 +65,7 @@ const questions_text =
             ]
         },
         {
-            "question": "Si juego un game de padel al mejor de 3, cuantos sets tengo que ganar para ganar el match?",
+            "question": "Si juego un game de padel al mejor de 3, cuántos sets tengo que ganar para ganar el match? ",
             "answers": [
                 {
                     "text": "3",
@@ -86,7 +86,7 @@ const questions_text =
             ]
         },
         {
-            "question": "Esta de novio el Profesor Cumpleañon?",
+            "question": "Está de novio el Profesor Cumpleañón?",
             "answers": [
                 {
                     "text": "No pero me metio los perros y el cepillo de dientes en el departamento",
@@ -107,7 +107,7 @@ const questions_text =
             ]
         },
         {
-            "question": "Cual de estos jugadores de futbol no es negro?",
+            "question": "Cuál de estos jugadores de futbol NO es negro?",
             "answers": [
                 {
                     "text": "Riquelme",
@@ -128,14 +128,14 @@ const questions_text =
             ]
         },
         {
-            "question": "Cual es el equipo de King of Fighters del Profesor Programon?",
+            "question": "Cuál es el equipo de King of Fighters del Profesor Programón?",
             "answers": [
                 {
                     "text": "King, Takuma, Iori",
                     "valid": true
                 },
                 {
-                    "text": "Massa, Bullrich, Milei",
+                    "text": "Ryo, Robert, Takuma",
                     "valid": false
                 },
                 {
@@ -144,6 +144,48 @@ const questions_text =
                 },
                 {
                     "text": "Nappa, Rey Chappa, Tao Pai Pai",
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "question": "Cuál de las siguientes actrices porno es la de menor estatura?",
+            "answers": [
+                {
+                    "text": "Mei Pang",
+                    "valid": false
+                },
+                {
+                    "text": "My Bad Reputation",
+                    "valid": false
+                },
+                {
+                    "text": "Little Tina",
+                    "valid": true
+                },
+                {
+                    "text": "Maria Riot",
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "question": "Cuál de los siguientes NO es un Castlevania?",
+            "answers": [
+                {
+                    "text": "Symphony of the Night",
+                    "valid": false
+                },
+                {
+                    "text": "Curse of Darkness",
+                    "valid": true
+                },
+                {
+                    "text": "Harmony of Dissonance",
+                    "valid": false
+                },
+                {
+                    "text": "Lament of Innocence",
                     "valid": false
                 }
             ]

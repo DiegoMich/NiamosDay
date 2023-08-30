@@ -1,11 +1,12 @@
 // VERSION
-const version = "2.3"
+const version = "3.0"
 
 // preguntas + index de la pregunta actual para la quizz
 let questions = null
 let currentQuestion = 0
 let canAnswer = true
 let lifeCounter = 3
+let threatened = false
 
 //bind events
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -90,7 +91,7 @@ function videoProgress() {
     }
 
     // segunda transision -> ultima vida
-    if (time >= 28 && lifeCounter == 1) {
+    if (time >= 28.4 && lifeCounter == 1) {
         resumeQuizz()
     }
 }
@@ -179,22 +180,13 @@ function toggleButtons(enable){
 function loadNextQuestion() {
     // LOSS
     if (lifeCounter === 0) {
-        // stop music
-        audio = document.getElementById("audio");
-        audio.volume = 0
-
-        //die effect
-        playSound("death")
-        
-        //show death screen
-        document.getElementById("quizz-container").style.display = 'none'
-        document.getElementById("life-container").style.display = 'none'
-        document.body.style.backgroundImage = "url('img/background_5.jpg')"
+        death()
         return
     }
 
     //LAST LIFE: THREAT
-    if (lifeCounter === 1) {
+    if (lifeCounter === 1 && !threatened) {
+        threatened = true
         showThreatVideo()
     }
 
@@ -277,11 +269,11 @@ function blur() {
 function showThreatVideo() {
     console.log('showThreatVideo')
 
-    //apagar musica
+    // stop music
     audio = document.getElementById("audio");
     audio.volume = 0;
 
-    //mostar el video
+    // show video
     document.getElementById("video-container").style.display = 'block'
     document.getElementById("video-container").style.zIndex = 1
     document.getElementsByTagName('source')[0].src = 'media/threat.mp4'
@@ -295,4 +287,28 @@ function resumeQuizz() {
 
     //ocultar el video
     document.getElementById("video-container").style.display = 'none'
+}
+
+function death() {
+    // stop music
+    audio = document.getElementById("audio");
+    audio.volume = 0
+
+    //show death screen
+    document.getElementById("quizz-container").style.display = 'none'
+    document.getElementById("life-container").style.display = 'none'
+    document.body.style.backgroundImage = "url('img/background_5.jpg')"
+
+    blur()
+
+    //show message
+    document.getElementById("die-msg-container").style.display = 'block'
+
+    //show video
+    document.getElementById("video-container").style.display = 'block'
+    document.getElementsByTagName('source')[0].src = 'media/death.mp4'
+    document.getElementById("video-player").load()
+
+    //restart button
+    document.getElementById("button-restart").style.display = 'block'
 }
