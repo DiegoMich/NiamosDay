@@ -34,6 +34,10 @@ body.waiting * {
     filter: brightness(110%);
 }
 
+.btn.inactive{
+    cursor: wait;
+}
+
 h3 {
     color: #f3f30f;
     text-shadow: 2px 2px 2px black;

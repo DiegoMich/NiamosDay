@@ -1,5 +1,5 @@
 // VERSION
-const version = "2.1"
+const version = "2.3"
 
 // preguntas + index de la pregunta actual para la quizz
 let questions = null
@@ -57,6 +57,8 @@ function start() {
 // Cambia a la pantalla del video
 function recibirRegalo() {
     console.log("recibirRegalo")
+
+    document.getElementsByTagName("title")[0].innerText = "Happy Birthday...? 😈"
 
     //apagar musica cumple
     audio = document.getElementById("audio");
@@ -157,6 +159,11 @@ function answer(e) {
 // Enables or disables answer buttons for quizz
 function toggleButtons(enable){
     canAnswer = enable
+
+    for(let i = 1; i <= 4; i++) {
+        let button = document.getElementById(`quizz-a${i}`)
+        enable ? button.classList.remove("inactive") : button.classList.add("inactive")
+    }
 }
 
 // Carga la siguiente pregunta en pantalla
