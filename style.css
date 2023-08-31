@@ -42,11 +42,28 @@ body.waiting * {
     cursor: wait;
 }
 
+h1 {
+    font-size: 100px;
+    text-align: center;
+    margin-top: 50px;
+    text-shadow: 1px 1px 3px black;
+
+    animation-name: win;
+    animation-duration: 500ms;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
 h3 {
     color: #f3f30f;
     text-shadow: 2px 2px 2px black;
     text-align: center;
     margin-bottom: 20px;
+
+    animation-name: null;
+    animation-duration: 500ms;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
 }
 
 h4 {
@@ -130,16 +147,6 @@ html {
     filter: brightness(110%);
 }
 
-h1 {
-    color: #a32020;
-    font-family: math;
-    font-size: xxx-large;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 50px;
-    text-shadow: 1px 1px 3px black;
-}
-
 .chest {
     position: absolute;
     top: 50%;
@@ -166,4 +173,14 @@ h1 {
     font-weight: normal;
     font-style: normal;
 
+}
+
+@keyframes flash {
+    from { color: red; }
+    to { color: #f3f30f; }
+}
+
+@keyframes win {
+    from { color: white; }
+    to { color: yellow; }
 }

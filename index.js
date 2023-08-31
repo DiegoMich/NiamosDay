@@ -1,5 +1,5 @@
 // VERSION
-const version = "3.0"
+const version = "3.5"
 
 // preguntas + index de la pregunta actual para la quizz
 let questions = null
@@ -7,6 +7,8 @@ let currentQuestion = 0
 let canAnswer = true
 let lifeCounter = 3
 let threatened = false
+let startedQuizz = false
+let resumedQuizz = false
 let chestsOpened = []
 
 //bind events
@@ -91,12 +93,12 @@ function recibirRegalo() {
 function videoProgress() {
     let time = document.getElementById("video-player").currentTime
     // primera transision -> quizz
-    if (time >= 67.6) {
+    if (time >= 67.6 && !startedQuizz) {
         startQuizz()
     }
 
     // segunda transision -> ultima vida
-    if (time >= 28.4 && lifeCounter == 1) {
+    if (time >= 28.4 && lifeCounter == 1 && !resumedQuizz) {
         resumeQuizz()
     }
 }
@@ -104,6 +106,9 @@ function videoProgress() {
 // Cambia a la pantalla de preguntas
 function startQuizz() {
     console.log("startQuizz")
+
+    //evitar evento duplicado
+    startedQuizz = true
 
     blur()
     //background
@@ -183,6 +188,8 @@ function toggleButtons(enable){
 
 // Carga la siguiente pregunta en pantalla
 function loadNextQuestion() {
+    console.log("loadNextQuestion - ", currentQuestion+1)
+
     // LOSS
     if (lifeCounter === 0) {
         death()
@@ -199,6 +206,7 @@ function loadNextQuestion() {
     if (lifeCounter === 1 && !threatened) {
         threatened = true
         showThreatVideo()
+        return //test remove
     }
 
     //Reactiva answer buttons
@@ -209,6 +217,12 @@ function loadNextQuestion() {
     document.getElementById("quizz-title").innerText = `Pregunta ${currentQuestion+1} de 5`
     document.getElementById("quizz-question").innerText = q.question
     
+    //Flash ultima pregunta
+    if (currentQuestion == 4) {
+        document.getElementById("quizz-title").style.animationName = 'flash'
+        playSound('final_round')
+    }
+
     q.answers.forEach(function (a, i) {
         let button = document.getElementById(`quizz-a${i+1}`)
         button.innerText = a.text
@@ -282,12 +296,17 @@ function showThreatVideo() {
 }
 
 function resumeQuizz() {
+    //evitar evento duplicado
+    resumedQuizz = true
+
     //prender musica
     audio = document.getElementById("audio");
     audio.volume = 0.5;
 
     //ocultar el video
     document.getElementById("video-container").style.display = 'none'
+
+    loadNextQuestion()
 
     //mostrar quizz
     document.getElementById("quizz-container").style.display = 'block'
@@ -332,6 +351,9 @@ function win() {
     audio.src = "media/win.mp3"
     audio.volume = 1
     audio.play()
+
+    //win message
+    document.getElementById("win-title").style.display = "block"
 }
 
 
@@ -349,6 +371,7 @@ function chestClick(id) {
     // Empty chests
     if (chestsOpened.length < 3) {
         chest.src = "img/chest_open_empty.png"
+        playSound('empty_chest')
         return
     }
 
@@ -356,4 +379,14 @@ function chestClick(id) {
     chest.src = "img/chest_open_prize.png"
     audio = document.getElementById("audio");
     audio.volume = 0
+    playSound('chest_prize')
+
+    // Video
+    document.getElementsByTagName('source')[0].src = 'media/win.mp4'
+    setTimeout(()=> {
+        document.getElementById("prizes").style.display = 'none'
+        document.getElementById("video-container").style.display = 'block'
+        document.getElementById("video-player").load()
+        document.getElementById("video-player").requestFullscreen()
+    }, 3000)
 }
