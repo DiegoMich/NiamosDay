@@ -102,7 +102,7 @@ function startQuizz() {
 
     blur()
     //background
-    document.body.style.backgroundImage = "url('img/background_3.jpg')"
+    document.body.style.backgroundImage = "url('img/animated-fight-background.gif')" //"url('img/background_3.jpg')"
     
     //mostrar quizz
     document.getElementById("video-container").style.display = 'none'
@@ -297,12 +297,9 @@ function death() {
     //show death screen
     document.getElementById("quizz-container").style.display = 'none'
     document.getElementById("life-container").style.display = 'none'
-    document.body.style.backgroundImage = "url('img/background_5.jpg')"
+    document.body.style.backgroundImage = "url('img/background_5.png')"
 
     blur()
-
-    //show message
-    document.getElementById("die-msg-container").style.display = 'block'
 
     //show video
     document.getElementById("video-container").style.display = 'block'
