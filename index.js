@@ -184,23 +184,30 @@ function loadNextQuestion() {
         return
     }
 
-    //LAST LIFE: THREAT
-    if (lifeCounter === 1 && !threatened) {
-        threatened = true
-        showThreatVideo()
-    }
-
     //WIN
     if (currentQuestion === 5) {
         //background
         document.body.style.backgroundImage = "url('img/background_4.jpg')"
         document.getElementById("quizz-container").style.display = 'none'
         document.getElementById("life-container").style.display = 'none'
+
+        //chests
+        document.getElementById("prizes").style.display = 'block'
+
+        blur()
+
         //musica
         audio = document.getElementById("audio");
         audio.src = "media/win.mp3"
         audio.volume = 1
         audio.play()
+        return
+    }
+
+    //LAST LIFE: THREAT
+    if (lifeCounter === 1 && !threatened) {
+        threatened = true
+        showThreatVideo()
     }
 
     //Reactiva answer buttons

@@ -4,6 +4,9 @@ body {
     overflow: hidden;
     background: url('img/background_0.jpg') no-repeat center center fixed;
     background-size: cover;
+
+    font-family: 'retro_gamingregular';
+    -webkit-font-smoothing : none;
 }
 
 body.waiting * {
@@ -72,6 +75,7 @@ h4 {
 
 .answer {
     width: 100%;
+    font-size: large;
 }
 
 #life-container {
@@ -134,4 +138,32 @@ h1 {
     text-align: center;
     margin-top: 50px;
     text-shadow: 1px 1px 3px black;
+}
+
+.chest {
+    position: absolute;
+    top: 50%;
+    width: 200px;
+    cursor: pointer;
+}
+
+#chest1 {
+    left: calc(35% - 100px)
+}
+
+#chest2 {
+    left: calc(50% - 100px)
+}
+
+#chest3 {
+    left: calc(65% - 100px)
+}
+
+@font-face {
+    font-family: 'retro_gamingregular';
+    src: url('fonts/retro_gaming-webfont.woff2') format('woff2'),
+         url('fonts/retro_gaming-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
 }
