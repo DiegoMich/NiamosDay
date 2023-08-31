@@ -7,6 +7,7 @@ let currentQuestion = 0
 let canAnswer = true
 let lifeCounter = 3
 let threatened = false
+let chestsOpened = []
 
 //bind events
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -14,6 +15,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     console.log("DOMContentLoaded")
     document.body.style.backgroundImage = "url('img/background_0.jpg')"
     document.getElementById("video-player").addEventListener("timeupdate", () => videoProgress())
+    document.getElementById("chest1").addEventListener("click", () => chestClick(1))
+    document.getElementById("chest2").addEventListener("click", () => chestClick(2))
+    document.getElementById("chest3").addEventListener("click", () => chestClick(3))
+
 })
 
 // Pantalla inicial
@@ -186,21 +191,7 @@ function loadNextQuestion() {
 
     //WIN
     if (currentQuestion === 5) {
-        //background
-        document.body.style.backgroundImage = "url('img/background_4.jpg')"
-        document.getElementById("quizz-container").style.display = 'none'
-        document.getElementById("life-container").style.display = 'none'
-
-        //chests
-        document.getElementById("prizes").style.display = 'block'
-
-        blur()
-
-        //musica
-        audio = document.getElementById("audio");
-        audio.src = "media/win.mp3"
-        audio.volume = 1
-        audio.play()
+        win()
         return
     }
 
@@ -302,6 +293,7 @@ function resumeQuizz() {
     document.getElementById("quizz-container").style.display = 'block'
 }
 
+// Lose game, show death video and restart button
 function death() {
     // stop music
     audio = document.getElementById("audio");
@@ -321,4 +313,47 @@ function death() {
 
     //restart button
     document.getElementById("button-restart").style.display = 'block'
+}
+
+// Win game, show prizes selection
+function win() {
+    //background
+    document.body.style.backgroundImage = "url('img/background_4.jpg')"
+    document.getElementById("quizz-container").style.display = 'none'
+    document.getElementById("life-container").style.display = 'none'
+
+    //chests
+    document.getElementById("prizes").style.display = 'block'
+
+    blur()
+
+    //musica
+    audio = document.getElementById("audio");
+    audio.src = "media/win.mp3"
+    audio.volume = 1
+    audio.play()
+}
+
+
+function chestClick(id) {
+    console.log("Chest click: ", id)
+    let chest = document.getElementById(`chest${id}`)
+    
+    // Already clicked
+    if (chestsOpened.includes(id)) {
+        return
+    }
+
+    chestsOpened.push(id)
+
+    // Empty chests
+    if (chestsOpened.length < 3) {
+        chest.src = "img/chest_open_empty.png"
+        return
+    }
+
+    // Prize
+    chest.src = "img/chest_open_prize.png"
+    audio = document.getElementById("audio");
+    audio.volume = 0
 }
