@@ -273,6 +273,9 @@ function showThreatVideo() {
     audio = document.getElementById("audio");
     audio.volume = 0;
 
+    // hide quizz
+    document.getElementById("quizz-container").style.display = 'none'
+
     // show video
     document.getElementById("video-container").style.display = 'block'
     document.getElementById("video-container").style.zIndex = 1
@@ -287,6 +290,9 @@ function resumeQuizz() {
 
     //ocultar el video
     document.getElementById("video-container").style.display = 'none'
+
+    //mostrar quizz
+    document.getElementById("quizz-container").style.display = 'block'
 }
 
 function death() {
