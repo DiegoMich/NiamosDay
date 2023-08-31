@@ -1,5 +1,5 @@
 // VERSION
-const version = "3.5"
+const version = "4.0"
 
 // preguntas + index de la pregunta actual para la quizz
 let questions = null
@@ -103,7 +103,7 @@ function videoProgress() {
     }
 
     // tercera transición -> voucher
-    if (time > 55 && chestsOpened.length > 1) {
+    if (time > 55.2 && chestsOpened.length > 1) {
         location.href = "media/voucher.pdf"
     }
 }
