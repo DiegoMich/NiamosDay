@@ -101,6 +101,11 @@ function videoProgress() {
     if (time >= 28.4 && lifeCounter == 1 && !resumedQuizz) {
         resumeQuizz()
     }
+
+    // tercera transición -> voucher
+    if (time > 55 && chestsOpened.length > 1) {
+        location.href = "media/voucher.pdf"
+    }
 }
 
 // Cambia a la pantalla de preguntas
