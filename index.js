@@ -194,6 +194,9 @@ function toggleButtons(enable){
 // Carga la siguiente pregunta en pantalla
 function loadNextQuestion() {
     console.log("loadNextQuestion - ", currentQuestion+1)
+    if (currentQuestion > 5) {
+        return
+    }
 
     // LOSS
     if (lifeCounter === 0) {
