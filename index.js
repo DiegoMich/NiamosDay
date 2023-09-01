@@ -141,9 +141,7 @@ function startQuizz() {
     }
     
     //preparar video amenaza
-    document.getElementsByTagName('source')[0].src = 'media/threat.mp4'
-    document.getElementById("video-player").load()
-    document.getElementById("video-player").pause()
+    prepareVideo('threat')
 
     loadNextQuestion()
 }
@@ -322,6 +320,8 @@ function resumeQuizz() {
 
     //mostrar quizz
     document.getElementById("quizz-container").style.display = 'block'
+
+    prepareVideo('death')
 }
 
 // Lose game, show death video and restart button
@@ -366,6 +366,8 @@ function win() {
 
     //win message
     document.getElementById("win-title").style.display = "block"
+
+    prepareVideo('win')
 }
 
 
@@ -401,4 +403,10 @@ function chestClick(id) {
         document.getElementById("video-player").load()
         document.getElementById("video-player").requestFullscreen()
     }, 3000)
+}
+
+function prepareVideo(file) {
+    document.getElementsByTagName('source')[0].src = `media/${file}.mp4`
+    document.getElementById("video-player").load()
+    document.getElementById("video-player").pause()
 }
