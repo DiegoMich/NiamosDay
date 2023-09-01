@@ -1,5 +1,5 @@
 // VERSION
-const version = "4.1"
+const version = "4.5"
 
 // preguntas + index de la pregunta actual para la quizz
 let questions = null
@@ -7,9 +7,9 @@ let currentQuestion = 0
 let canAnswer = true
 let lifeCounter = 3
 let threatened = false
-let startedQuizz = false
 let resumedQuizz = false
 let chestsOpened = []
+let stage = 'start'
 
 //bind events
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -92,18 +92,22 @@ function recibirRegalo() {
 // Timer para pasar a la pantalla de preguntas cuando termina el video
 function videoProgress() {
     let time = document.getElementById("video-player").currentTime
+
     // primera transision -> quizz
-    if (time >= 67.6 && !startedQuizz) {
+    if (time >= 67.6 && stage == 'start') {
+        console.log("videoProgress: startQuizz")
         startQuizz()
     }
 
     // segunda transision -> ultima vida
-    if (time >= 28.4 && lifeCounter == 1 && !resumedQuizz) {
+    if (time >= 28.4 && stage == 'quizz' && threatened) {
+        console.log("videoProgress: threat")
         resumeQuizz()
     }
 
     // tercera transición -> voucher
-    if (time > 55.2 && chestsOpened.length > 1) {
+    if (time > 55.2 && stage == 'win') {
+        console.log("videoProgress: win")
         location.href = "media/voucher.pdf"
     }
 }
@@ -112,12 +116,11 @@ function videoProgress() {
 function startQuizz() {
     console.log("startQuizz")
 
-    //evitar evento duplicado
-    startedQuizz = true
+    stage = 'quizz'
 
     blur()
     //background
-    document.body.style.backgroundImage = "url('img/animated-fight-background.gif')" //"url('img/background_3.jpg')"
+    document.body.style.backgroundImage = "url('img/animated-fight-background.gif')"
     
     //mostrar quizz
     document.getElementById("video-container").style.display = 'none'
@@ -196,19 +199,19 @@ function toggleButtons(enable){
 
 // Carga la siguiente pregunta en pantalla
 function loadNextQuestion() {
-    console.log("loadNextQuestion - ", currentQuestion+1)
+    console.log("loadNextQuestion - ", currentQuestion)
     if (currentQuestion > 5) {
         return
     }
 
     // LOSS
-    if (lifeCounter === 0) {
+    if (lifeCounter == 0 && chestsOpened.length == 0) {
         death()
         return
     }
 
     //WIN
-    if (currentQuestion === 5) {
+    if (currentQuestion == 5 && chestsOpened.length == 0) {
         win()
         return
     }
@@ -306,6 +309,8 @@ function showThreatVideo() {
 }
 
 function resumeQuizz() {
+    console.log('resumeQuizz')
+
     //evitar evento duplicado
     resumedQuizz = true
 
@@ -326,6 +331,8 @@ function resumeQuizz() {
 
 // Lose game, show death video and restart button
 function death() {
+    console.log('death')
+
     // stop music
     audio = document.getElementById("audio");
     audio.volume = 0
@@ -348,6 +355,8 @@ function death() {
 
 // Win game, show prizes selection
 function win() {
+    stage = 'win'
+
     //background
     document.body.style.backgroundImage = "url('img/background_4.jpg')"
     document.getElementById("quizz-container").style.display = 'none'

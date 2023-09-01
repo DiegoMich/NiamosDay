@@ -273,5 +273,26 @@ const questions_text =
                 "valid": false
             }
         ]
+    },
+    {
+        "question": "Cuál de las siguientes afirmaciones es FALSA?",
+        "answers": [
+            {
+                "text": "Krilin es Elmo",
+                "valid": false
+            },
+            {
+                "text": "Bajin Boo es Megatrón",
+                "valid": true
+            },
+            {
+                "text": "Vegeta es Hyoga",
+                "valid": false
+            },
+            {
+                "text": "Freezer es Han Solo",
+                "valid": false
+            }
+        ]
     }
 ]`
