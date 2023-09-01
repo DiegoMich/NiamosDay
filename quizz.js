@@ -282,15 +282,15 @@ const questions_text =
                 "valid": false
             },
             {
-                "text": "Bajin Boo es Megatrón",
+                "text": "Majin Boo es el Profesor Frink",
                 "valid": true
             },
             {
-                "text": "Vegeta es Hyoga",
+                "text": "El Capitán Ginyu es Bender",
                 "valid": false
             },
             {
-                "text": "Freezer es Han Solo",
+                "text": "Raditz es Gendo Ikari",
                 "valid": false
             }
         ]
