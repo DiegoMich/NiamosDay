@@ -333,6 +333,8 @@ function resumeQuizz() {
 function death() {
     console.log('death')
 
+    stage = 'death'
+
     // stop music
     audio = document.getElementById("audio");
     audio.volume = 0
