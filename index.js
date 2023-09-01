@@ -1,5 +1,5 @@
 // VERSION
-const version = "4.0"
+const version = "4.1"
 
 // preguntas + index de la pregunta actual para la quizz
 let questions = null
@@ -140,6 +140,11 @@ function startQuizz() {
         button.addEventListener("click", answer);
     }
     
+    //preparar video amenaza
+    document.getElementsByTagName('source')[0].src = 'media/threat.mp4'
+    document.getElementById("video-player").load()
+    document.getElementById("video-player").pause()
+
     loadNextQuestion()
 }
 
@@ -299,8 +304,7 @@ function showThreatVideo() {
     // show video
     document.getElementById("video-container").style.display = 'block'
     document.getElementById("video-container").style.zIndex = 1
-    document.getElementsByTagName('source')[0].src = 'media/threat.mp4'
-    document.getElementById("video-player").load()
+    document.getElementById("video-player").play()
 }
 
 function resumeQuizz() {
