@@ -106,7 +106,7 @@ function videoProgress() {
     }
 
     // tercera transición -> voucher
-    if (time > 55.2 && stage == 'win') {
+    if (time > 61 && stage == 'win') {
         console.log("videoProgress: win")
         location.href = "media/voucher.pdf"
     }
